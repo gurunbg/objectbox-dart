@@ -572,7 +572,7 @@ class Query<T> {
 
   List<T> find({int offset = 0, int limit = 0}) {
     return _store.runInTransaction(TxMode.Read, () {
-      if (bindings.obx_supports_bytes_array() == 1) {
+      if (bindings.obx_supports_bytes_array() != 1) {
         final bytesArray = checkObxPtr(bindings.obx_query_find(_cQuery, offset, limit), "find");
         try {
           return _fbManager.unmarshalArray(bytesArray);
